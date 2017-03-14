@@ -35,6 +35,8 @@ namespace SortingConsole
             {
                 case "Heap":
                     return new HeapSort<int>();
+                case "Merge":
+                    return new MergeSort<int>();
                 default:
                     return null;
             }
