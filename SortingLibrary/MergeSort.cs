@@ -19,28 +19,29 @@ namespace SortingLibrary
         {
             //Mark the breakpoint for dividing the specified section of the array into two almost half sized parts.
             int dividedLength = -1, breakPoint = -1;
-            if (iArrayEnd <= iArrayStart) return;
-            dividedLength = (iArrayEnd - iArrayStart + 1) / 2;
-            breakPoint = iArrayStart + dividedLength % 2 == 0 ? dividedLength : dividedLength + 1;
+            if (iArrayEnd <= iArrayStart + 1) return;
+            dividedLength = (iArrayEnd - iArrayStart) / 2;
+            breakPoint = iArrayStart + (dividedLength % 2 != 0 || dividedLength <= 1 ? dividedLength : dividedLength + 1);
             DivideAndMerge(inputArray, iArrayStart, breakPoint);
             DivideAndMerge(inputArray, breakPoint + 1, iArrayEnd);
             //Merge the arrays into one.
-            for (int i = iArrayStart, j = breakPoint + 1; i <= breakPoint && j <= iArrayEnd;)
+            int i = iArrayStart, j = breakPoint + 1;
+            while(i <= breakPoint && j <= iArrayEnd)
             {
                 if (inputArray[i].CompareTo(inputArray[j]) > 0)
                 {
-                    
-                }
-            }
-        }
+                    var valueToPlace = inputArray[j];
+                    for(var k = j; k > i; k--)
+                    {
+                        inputArray[k] = inputArray[k-1];
+                    }
+                    inputArray[i] = valueToPlace;
 
-        private void Divide(T[] inputArray, int iArrayStart, int iArrayEnd)
-        {
-            //Divide the array into two almost half sized arrays.
-            int dividedLength = -1, breakPoint = -1;
-            if (iArrayEnd <= iArrayStart) return;
-            dividedLength = (iArrayEnd - iArrayStart + 1) / 2;
-            breakPoint = iArrayStart + dividedLength % 2 == 0 ? dividedLength : dividedLength + 1;
+                    breakPoint++;
+                    j++;
+                }
+                i++;
+            }
         }
     }
 }

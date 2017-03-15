@@ -17,8 +17,8 @@ namespace SortingConsole
             builder.RegisterType<WriteArrayToConsole<int>>().As<IDataWriter<int>>().InstancePerLifetimeScope();
             var container = builder.Build();
 
-            int[] arr = {5, 8, 1, 6, 3, 9, 2};
-            var sorter = GetSortObject("Heap");
+            int[] arr = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+            var sorter = GetSortObject("Merge");
             sorter.PerformSort(arr);
 
             using (var scope = container.BeginLifetimeScope())
